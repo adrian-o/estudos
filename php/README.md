@@ -1,0 +1,1 @@
+This directory is to PHP studing. All ways to study will be here.
