@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Advanced javascript</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" id="navTitle" href="index.html">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="form-inline">
+            <input type="hidden" id="keyProd">
+            <div class="form-group">
+                <input type="text" class="form-control" id="desc" placeholder="Description">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="amount" placeholder="Ammount">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="value" placeholder="Value">
+            </div>
+            <span id="spnUpdate" style="display:none;">
+                <button class="btn btn-default" id="btnUp" onclick="updateProduct()">Save</button>
+                <button class="btn btn-default" id="btnCanc" onclick="resetForm()">Cancel</button>
+            </span>
+            <button id="btnAdd" class="btn btn-default" onclick="addProduct()">Add</button>
+        </div>
+
+        <table id="listTable" class="table">
+        </table>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
