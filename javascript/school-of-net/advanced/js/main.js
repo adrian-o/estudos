@@ -10,7 +10,8 @@ function getTotal(products) {
         var product = products[key];
         total += (product.value * product.amount);
     }
-    return total;
+
+    document.getElementById('spnTotal').innerHTML = formatValue(total);
 }
 
 function setList() {
@@ -18,7 +19,7 @@ function setList() {
     for (var key in products) {
         var product = products[key];
         var trT = '<tr><td>'+formatDesc(product.desc)+'</td>'+
-                       '<td>'+product.amount+'</td>'+
+                       '<td>'+formatAmount(product.amount)+'</td>'+
                        '<td>'+formatValue(product.value)+'</td>'+
                        '<td><button class="btn btn-default" onclick="setUpdate('+key+')">Edit</button> |'+
                        '    <button class="btn btn-default" onclick="deleteProduct('+key+')">Delete</button></td>'+
@@ -27,7 +28,8 @@ function setList() {
     }
     table += '</tbody>';
     document.getElementById('listTable').innerHTML = table;
-    console.log(getTotal(products));
+    getTotal(products);
+    saveListStorage();
 }
 
 function formatDesc(desc) {
@@ -36,16 +38,24 @@ function formatDesc(desc) {
     return str;
 }
 
+function formatAmount(amount) {
+    return parseInt(amount);
+}
+
 function formatValue(value) {
     return 'R$ ' + value.toFixed(2).toString().replace('.',',');
 }
 
 function addProduct() {
+    if (!validation()) {
+        return;
+    }
+
     products.unshift(
         {"desc": document.getElementById("desc").value,
          "amount": document.getElementById("amount").value,
          "value": parseFloat(document.getElementById("value").value)});
-
+    resetForm();
     setList();
 }
 
@@ -65,10 +75,15 @@ function resetForm() {
     document.getElementById("amount").value = '';
     document.getElementById("value").value = '';
     document.getElementById("spnUpdate").style.display = 'none';
+    document.getElementById('spnErrors').style.display = "none";
     document.getElementById("btnAdd").style.display = 'inline-block';
 }
 
 function updateProduct() {
+    if (!validation()) {
+        return;
+    }
+
     var prod = products[document.getElementById('keyProd').value];
     prod.desc = document.getElementById('desc').value;
     prod.amount = document.getElementById('amount').value;
@@ -77,8 +92,78 @@ function updateProduct() {
     setList();
 }
 
-function deleteProduct() {
+function deleteProduct(key) {
+    if (confirm('Do yoy want to delete this product?')) {
+        if (key === 0) {
+            products.shift();
+        } else if (key === products.length - 1) {
+            products.pop();
+        } else {
+            var listIni = products.slice(0,key);
+            var listEnd = products.slice(key+1);
+            products = listIni.concat(listEnd);
+        }
 
+        setList();
+    }
 }
 
-setList();
+function validation() {
+    var desc   = document.getElementById('desc').value;
+    var amount = document.getElementById('amount').value
+    var value  = document.getElementById('value').value
+
+    document.getElementById('spnErrors').style.display = "none";
+
+    var errors = "";
+
+    if (desc === "") {
+        errors += '<p>Fill out description</p>';
+    }
+
+    if (amount === "") {
+        errors += '<p>Fill out amount</p>';
+    } else if (amount != parseInt(amount)) {
+        errors += '<p>Amount must be a number</p>';
+    }
+
+    if (value === "") {
+        errors += '<p>Fill out value</p>';
+    } else if (value != parseFloat(value)) {
+        errors += '<p>Value must be a number</p>';
+    }
+
+    if (errors != "") {
+        document.getElementById('spnErrors').style.display = "block";
+        document.getElementById('spnErrors').style.backgroundColor = "#ec9893";
+        document.getElementById('spnErrors').style.padding = "10px";
+        document.getElementById('spnErrors').style.margin = "8px";
+        document.getElementById('spnErrors').style.borderRadius = "10px";
+        document.getElementById('spnErrors').innerHTML = "<h3>Error: </h3>" + errors;
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+function deleAllProducts() {
+    if (confirm('Do you want delete all the list?')) {
+        products = [];
+        setList();
+    }
+}
+
+function saveListStorage() {
+    var jsonProducts = JSON.stringify(products);
+    localStorage.setItem("products", jsonProducts);
+}
+
+function initListStorage() {
+    var testProds = localStorage.getItem("products");
+    if(testProds) {
+        products = JSON.parse(testProds);
+    }
+    setList();
+}
+
+initListStorage();

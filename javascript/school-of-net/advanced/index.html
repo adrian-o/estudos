@@ -17,7 +17,6 @@
 
     <div class="container-fluid">
         <div class="form-inline">
-            <input type="hidden" id="keyProd">
             <div class="form-group">
                 <input type="text" class="form-control" id="desc" placeholder="Description">
             </div>
@@ -28,15 +27,30 @@
                 <input type="text" class="form-control" id="value" placeholder="Value">
             </div>
             <span id="spnUpdate" style="display:none;">
-                <button class="btn btn-default" id="btnUp" onclick="updateProduct()">Save</button>
-                <button class="btn btn-default" id="btnCanc" onclick="resetForm()">Cancel</button>
+                <input type="hidden" id="keyProd">
+                <button class="btn btn-default" id="btnUp" onclick="updateProduct();">Save</button>
+                <button class="btn btn-default" id="btnCanc" onclick="resetForm();">Cancel</button>
             </span>
-            <button id="btnAdd" class="btn btn-default" onclick="addProduct()">Add</button>
+            <span id="btnAdd">
+                <button class="btn btn-default" onclick="addProduct();">Add</button>
+                <button class="btn btn-default" onclick="resetForm();">Reset</button>
+                <button class="btn btn-default" onclick="deleAllProducts();">Delete all</button>
+            </span>
         </div>
+    </div>
+
+    <div>
+        <span id="spnErrors" style="display: none; width: 200px;"></span>
 
         <table id="listTable" class="table">
         </table>
     </div>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <h4 class="text-center text-success">Total: <span id="spnTotal">R$ 0,00</span></h4>
+        </div>
+    </nav>
 
     <script src="js/config.js"></script>
     <script src="js/main.js"></script>
