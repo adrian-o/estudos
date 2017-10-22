@@ -14,12 +14,28 @@ function Person(_name, _age, _height) {
         }
     }
 
+    this.getName = function () {
+        return name;
+    }
+
     this.setName = function (_name) {
         name = _name;
     }
 
+    this.getAge = function () {
+        return age;
+    }
+
     this.setAge = function (_age) {
-        age = _age;
+        age = _age; 
+    }
+
+    this.getHeight = function () {
+        return height;
+    }
+
+    this.setHeight = function (_height) {
+        height = _height; 
     }
 }
 
@@ -27,15 +43,40 @@ Person.prototype.myProtoFunc = function () {
     console.log('First prototype function');
 }
 
-var adriano = new Person('Adriano Ohana', 34, 179);
+Person.prototype.happyBirthday = function () {
+    this.setAge(this.getAge()+1);
+}
 
-Person.say_hello = function () {
-    for (var i = 0; i < 5; i++) {
-        console.log('Static Hello ' + i);
+function Employee(_name, _age, _height) {
+    var salary;
+
+    Person.call(this, _name, _age, _height);
+
+    this.getSalary = function () {
+        return salary;
+    }
+
+    this.setSalary = function(_salary) {
+        salary = _salary;
     }
 }
 
-adriano.myProtoFunc();
+Employee.prototype = Object.create(Person.prototype);
+
+// var adriano = new Person('Adriano Ohana', 34, 179);
+var adriano = new Employee('Adriano Ohana', 34, 179);
+
+console.log(adriano.getAge());
+adriano.happyBirthday();
+console.log(adriano.getAge());
+
+// Person.say_hello = function () {
+//     for (var i = 0; i < 5; i++) {
+//         console.log('Static Hello ' + i);
+//     }
+// }
+
+// adriano.myProtoFunc();
 
 //Person.say_hello();
 
