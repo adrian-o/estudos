@@ -85,55 +85,86 @@
 
 // ##### Scope variables #####
 
-var car:string = 'Ferrari';
+// var car:string = 'Ferrari';
 
-function getCar(value:string):string {
-    var car = value;
-    return car;
-}
+// function getCar(value:string):string {
+//     var car = value;
+//     return car;
+// }
 
-console.log(getCar("Camaro"));
-console.log(car);
+// console.log(getCar("Camaro"));
+// console.log(car);
 
-function testScope() {
-    return car;
-}
+// function testScope() {
+//     return car;
+// }
 
-console.log(testScope());
+// console.log(testScope());
 
-function testA() {
-    var a = 1;
-    a = 2;
-    var b = testB();
-    a = 3;
-    return b;   
-    function testB() {
-        return a;
-    }
-}
+// function testA() {
+//     var a = 1;
+//     a = 2;
+//     var b = testB();
+//     a = 3;
+//     return b;   
+//     function testB() {
+//         return a;
+//     }
+// }
 
-console.log(testA());
+// console.log(testA());
 
-function f(value:boolean) {
-    let a = 100;
+// function f(value:boolean) {
+//     let a = 100;
     
-    if(value) {
-        let b = a + 1;
-        return b;
-    }
+//     if(value) {
+//         let b = a + 1;
+//         return b;
+//     }
 
-    // return b;
-}
+//     // return b;
+// }
 
-console.log(f(false));
+// console.log(f(false));
 
-function g(condition:boolean, x:number) {
-    if (condition) {
-        let x = 100;
-        return x;
-    }
+// function g(condition:boolean, x:number) {
+//     if (condition) {
+//         let x = 100;
+//         return x;
+//     }
 
-    return x;
-}
+//     return x;
+// }
 
-console.log(g(false, 50));
+// console.log(g(false, 50));
+
+// // Testing "For of" loop
+
+// var listCar = ['Camaro', 'Ferrari', 'Porsche'];
+
+// for(var car in listCar) {
+//     console.log(car);
+// }
+
+// for (var car of listCar) {
+//     console.log(car);
+// }
+
+// var colors = new Array(['Green', 'Red', 'Blue']);
+// colors['title'] = 'Colors';
+
+// console.log(colors);
+
+// for(var color in colors) {
+//     console.log(color);
+// }
+
+// for (var c of colors) {
+//     console.log(c);
+// }
+
+// Separeted file...
+/// <reference path="Car" />
+
+var c1 = new Car('Camaro', 'Yellow', 240);
+c1.getCar();
