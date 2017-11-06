@@ -1,5 +1,3 @@
-'use strict';
-
 // ############# First example ############## /
 /**
 var bob = {
@@ -117,21 +115,24 @@ let text = `
 
 // ############# Testing format ############## /
 
-var number = 123445.45;
+// var number = 123445.45;
 
-var En = Intl.NumberFormat('en-US').format(number);
-var De = Intl.NumberFormat('de-DE').format(number);
-console.log(En);
-console.log(De);
+// var En = Intl.NumberFormat('en-US').format(number);
+// var De = Intl.NumberFormat('de-DE').format(number);
+// console.log(En);
+// console.log(De);
 
-var USD = Intl.NumberFormat('en-US', { style: "currency", currency: "USD" }).format(number);
-var BRL = Intl.NumberFormat('pt-BR', { style: "currency", currency: "BRL" }).format(number);
-console.log(USD);
-console.log(BRL);
+// var USD = Intl.NumberFormat('en-US', {style:"currency", currency:"USD"}).format(number);
+// var BRL = Intl.NumberFormat('pt-BR', {style:"currency", currency:"BRL"}).format(number);
+// console.log(USD);
+// console.log(BRL);
 
-var nDt = new Date("2016-04-25");
+// var nDt = new Date("2016-04-25");
 
-var dUS = Intl.DateTimeFormat('en-US').format(nDt);
-var dBR = Intl.DateTimeFormat('pt-BR').format(nDt);
-console.log(dUS);
-console.log(dBR);
+// var dUS = Intl.DateTimeFormat('en-US').format(nDt);
+// var dBR = Intl.DateTimeFormat('pt-BR').format(nDt);
+// console.log(dUS);
+// console.log(dBR);
+
+// ############# String searching ############## /
+"use strict";
