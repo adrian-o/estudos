@@ -76,8 +76,60 @@ let text = `
 
 // ############# For OF ############## /
 
-var list = ['Adriano', 34, {color:'red'}];
+// var list = ['Adriano', 34, {color:'red'}];
 
-for (var i in list) {
-    console.log(list[i]);
-}
+// for (let i of list) {
+//     console.log(list[i]);
+// }
+
+// ############# Parents classes ############## /
+
+// class People {
+//     constructor(name, email, phone) {
+//         this.name = name;
+//         this.email = email;
+//         this.phone = phone;
+//     }
+
+//     toString() {
+//         return `Name: ${this.name}
+//         Email: ${this.email}
+//         Phone: ${this.phone}`;
+//     }
+// }
+
+// class Client extends People {
+//     constructor(id, name, email, phone) {
+//         super(name, email, phone);
+//         this.id = id;
+//     }
+
+//     toString() {
+//         return `Id: ${this.id}
+//         ${super.toString()}`;
+//     }
+// }
+
+// var client = new Client(1, 'Adriano', 'adriano@gmail.com', 12322113);
+// console.log(client.toString());
+
+// ############# Testing format ############## /
+
+var number = 123445.45;
+
+var En = Intl.NumberFormat('en-US').format(number);
+var De = Intl.NumberFormat('de-DE').format(number);
+console.log(En);
+console.log(De);
+
+var USD = Intl.NumberFormat('en-US', {style:"currency", currency:"USD"}).format(number);
+var BRL = Intl.NumberFormat('pt-BR', {style:"currency", currency:"BRL"}).format(number);
+console.log(USD);
+console.log(BRL);
+
+var nDt = new Date("2016-04-25");
+
+var dUS = Intl.DateTimeFormat('en-US').format(nDt);
+var dBR = Intl.DateTimeFormat('pt-BR').format(nDt);
+console.log(dUS);
+console.log(dBR);
