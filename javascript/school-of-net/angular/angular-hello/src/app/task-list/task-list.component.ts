@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Task } from '../model/task';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'ng-task-list',
@@ -7,15 +8,10 @@ import { Task } from '../model/task';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent {
-  tasks = [];
-  task:Task = {
-    name: "",
-    value: 0,
-    date_launch: new Date()
-  };
 
-  add(){
-    this.tasks.push(this.task);
-    this.task = new Task();
+  tasks: Array<Task>= [];
+
+  constructor(private taskService:TaskService) {
+    this.tasks = this.taskService.tasks;
   }
 }
