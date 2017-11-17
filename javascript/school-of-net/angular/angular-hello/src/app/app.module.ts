@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { TaskListComponent } from './task-list/task-list.component';
@@ -9,6 +10,8 @@ import { FormatDatePipe } from './format-date.pipe';
 import { MyTaskDirective } from './my-task.directive';
 import { TaskNewComponent } from './task-new/task-new.component';
 import { TaskService } from './task.service';
+import { CepComponent } from './cep/cep.component';
+import { CepService } from './cep.service';
 
 @NgModule({
   declarations: [
@@ -17,13 +20,18 @@ import { TaskService } from './task.service';
     FormatCurrencyPipe,
     FormatDatePipe,
     MyTaskDirective,
-    TaskNewComponent
+    TaskNewComponent,
+    CepComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
-  providers: [TaskService],
+  providers: [
+    TaskService, 
+    CepService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
