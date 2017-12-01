@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
@@ -12,6 +13,11 @@ import { TaskNewComponent } from './task-new/task-new.component';
 import { TaskService } from './task.service';
 import { CepComponent } from './cep/cep.component';
 import { CepService } from './cep.service';
+
+const appRoutes:Routes = [
+  {path:'tasks', component: TaskListComponent},
+  {path:'tasks/new', component: TaskNewComponent}
+]
 
 @NgModule({
   declarations: [
@@ -26,7 +32,8 @@ import { CepService } from './cep.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     TaskService, 
