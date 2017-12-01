@@ -1,0 +1,34 @@
+<form #frmCad="ngForm">
+    <div class="container">
+        <div class="row">
+            <div class="form-group" [ngClass]="{'has-error':!nameNg.valid && (nameNg.dirty || nameNg.touched)}">
+                <label for="name">Nome</label>
+                <input type="text" class="form-control" id="name" name="name" required 
+                    [(ngModel)]="name" #nameNg="ngModel"/>
+                <span class="help-block" *ngIf="nameNg.errors && (nameNg.dirty || nameNg.touched)">
+                    <ul>
+                        <li *ngIf="nameNg.errors.required">
+                            O campo nome é obrigatório
+                        </li>
+                    </ul>
+                </span>
+            </div>
+            <div class="form-group" [ngClass]="{'has-error':!emailNg.valid && (emailNg.dirty || emailNg.touched)}">
+                <label for="name">E-Mail</label>
+                <input type="text" class="form-control" id="email" name="email" email required
+                        [(ngModel)]="email" #emailNg="ngModel"/>
+                <span class="help-block" *ngIf="emailNg.errors && (emailNg.dirty || emailNg.touched)">
+                    <ul>
+                        <li *ngIf="emailNg.errors.required">
+                            O campo e-mail é obrigatório
+                        </li>
+                        <li *ngIf="emailNg.errors.email && !emailNg.errors.required">
+                            Insira um e-mail válido
+                        </li>
+                    </ul>
+                </span>
+            </div>
+            <button class="btn btn-primary" type="submit" [disabled]="!frmCad.valid">Enviar</button>
+        </div>
+    </div>
+</form>
