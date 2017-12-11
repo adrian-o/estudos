@@ -12,5 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('angular');
 });
+
+Route::get('estados','CidadeController@getEstados');
+
+Route::get('estados/{estadoId}/cidades','CidadeController@getCidades');
