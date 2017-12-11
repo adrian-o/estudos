@@ -23,6 +23,8 @@ Homestead.json
 .vscode
 
 # Java
+.recommenders
+java/school-of-net/spring/Servers/
 
 .gradle
 /build/
