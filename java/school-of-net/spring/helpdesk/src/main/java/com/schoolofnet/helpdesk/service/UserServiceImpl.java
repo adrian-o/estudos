@@ -3,6 +3,7 @@ package com.schoolofnet.helpdesk.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.schoolofnet.helpdesk.model.User;
@@ -14,8 +15,12 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public UserServiceImpl(UserRepository repository) {
+	@Autowired
+	private BCryptPasswordEncoder bCryptPE;
+	
+	public UserServiceImpl(UserRepository repository, BCryptPasswordEncoder bCryptPE) {
 		this.repository = repository;
+		this.bCryptPE = bCryptPE;
 	}
 	
 	@Override
@@ -25,6 +30,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User create(User user) {
+		user.setPassword(this.bCryptPE.encode(user.getPassword()));
 		return this.repository.save(user);
 	}
 
@@ -54,7 +60,7 @@ public class UserServiceImpl implements UserService {
 			userExists.setName(user.getName());
 			userExists.setLastName(user.getLastName());
 			userExists.setEmail(user.getEmail());
-			userExists.setPassword(user.getPassword());
+			userExists.setPassword(this.bCryptPE.encode(user.getPassword()));
 			userExists.setActive(user.getActive());
 			
 			this.repository.save(userExists);
