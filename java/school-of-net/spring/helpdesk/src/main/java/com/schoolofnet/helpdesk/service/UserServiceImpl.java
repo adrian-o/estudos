@@ -1,12 +1,16 @@
 package com.schoolofnet.helpdesk.service;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.schoolofnet.helpdesk.model.Role;
 import com.schoolofnet.helpdesk.model.User;
+import com.schoolofnet.helpdesk.repositories.RoleRepository;
 import com.schoolofnet.helpdesk.repositories.UserRepository;
 
 @Service
@@ -16,10 +20,14 @@ public class UserServiceImpl implements UserService {
 	private UserRepository repository;
 	
 	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
 	private BCryptPasswordEncoder bCryptPE;
 	
-	public UserServiceImpl(UserRepository repository, BCryptPasswordEncoder bCryptPE) {
+	public UserServiceImpl(UserRepository repository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPE) {
 		this.repository = repository;
+		this.roleRepository = roleRepository;
 		this.bCryptPE = bCryptPE;
 	}
 	
@@ -31,6 +39,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User create(User user) {
 		user.setPassword(this.bCryptPE.encode(user.getPassword()));
+		
+		Role userRole = this.roleRepository.findByName("USER");
+		
+		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+		
 		return this.repository.save(user);
 	}
 
@@ -62,6 +75,10 @@ public class UserServiceImpl implements UserService {
 			userExists.setEmail(user.getEmail());
 			userExists.setPassword(this.bCryptPE.encode(user.getPassword()));
 			userExists.setActive(user.getActive());
+			
+			Role userRole = this.roleRepository.findByName(user.getRoles().iterator().next().getName());
+			
+			userExists.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 			
 			this.repository.save(userExists);
 			

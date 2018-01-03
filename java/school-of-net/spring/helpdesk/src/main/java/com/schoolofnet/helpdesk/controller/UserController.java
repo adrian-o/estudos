@@ -1,5 +1,7 @@
 package com.schoolofnet.helpdesk.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.schoolofnet.helpdesk.model.Role;
 import com.schoolofnet.helpdesk.model.User;
+import com.schoolofnet.helpdesk.service.RolesService;
 import com.schoolofnet.helpdesk.service.UserService;
 
 @Controller
@@ -23,6 +27,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RolesService roleService;
 	
 	@GetMapping
 	public String index(Model model) {
@@ -51,7 +58,11 @@ public class UserController {
 	public String edit(@PathVariable("id") Long id, 
 			Model model) {
 		User user = this.userService.show(id);
+		
+		List<Role> roles = this.roleService.findAll();
+		
 		model.addAttribute("user", user);
+		model.addAttribute("roles", roles);
 		return "users/edit";
 	}
 	
