@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
@@ -54,6 +55,12 @@ public class User implements Serializable {
 			   joinColumns=@JoinColumn(name="user_id"), 
 			   inverseJoinColumns=@JoinColumn(name="role_id"))
 	private Set<Role> roles;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="userOpen")
+	private Set<Ticket> tickets;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="technician")
+	private Set<Ticket> ticketsTechnician;
 	
 	public User() {}
 	
