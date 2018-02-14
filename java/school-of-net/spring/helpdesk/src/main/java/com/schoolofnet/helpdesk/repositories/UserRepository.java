@@ -13,6 +13,8 @@ import com.schoolofnet.helpdesk.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	
-	@Query(value="select us.* from users us inner join users_roles ur on us.id = ur.user_id where ur.role_id = :role_id", nativeQuery=true)
-	public List<User> findAllWhereRoleEquals(@Param("role_id") Long roleId);
+	@Query(value="select us.* from users us inner join users_roles ur on us.id = ur.user_id where ur.role_id = :role_id and us.id <> :user_id", nativeQuery=true)
+	public List<User> findAllWhereRoleEquals(@Param("role_id") Long roleId, @Param("user_id") Long userId);
+	
+	public User findByEmail(String email);
 }

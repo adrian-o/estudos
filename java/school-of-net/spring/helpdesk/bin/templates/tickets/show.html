@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://ultraq.net.nz/thymeleaf/layout/"
+	layout:decorator="layout">
+	
+	<th:block layout:fragment="content">
+		<div class="col-xs-12 col-md-12">
+			
+			<div class="card">
+				<div class="card-header">
+					Ticket - <span th:text="${ticket.id}"></span>
+				</div>
+				
+				<div class="card-block">
+					<ul>
+						<li>
+							Name:
+							<span th:text="${ticket.name}"></span>
+						</li>
+						<li>
+							Created:
+							<span th:text="${#dates.format(ticket.created, 'dd/MM/yyyy')}"></span>
+						</li>
+						<li>
+							Description:
+							<span th:text="${ticket.description}"></span>
+						</li>
+						<li>
+							Finished:
+							<div class="inline" th:switch="${ticket.finished}">
+								<span th:case="${true}" class="badge badge-success" th:text="YES"></span>
+								<span th:case="${false}" class="badge badge-danger" th:text="NO"></span> 
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<form th:action="@{/tickets/}" th:object="${ticket}" th:method="post"></form>
+		</div>	
+		<a href="/tickets" class="btn btn-default">Back</a>
+		
+	</th:block>
+	
+</html>

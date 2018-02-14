@@ -29,7 +29,7 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(unique = true)
 	@Email(message = "Please, provide a valid e-mail")
 	@NotEmpty(message = "Can not be empty")
 	private String email;

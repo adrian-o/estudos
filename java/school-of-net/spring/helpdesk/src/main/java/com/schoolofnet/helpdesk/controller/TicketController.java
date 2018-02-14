@@ -1,13 +1,23 @@
 package com.schoolofnet.helpdesk.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.schoolofnet.helpdesk.model.Role;
 import com.schoolofnet.helpdesk.model.Ticket;
+import com.schoolofnet.helpdesk.model.User;
 import com.schoolofnet.helpdesk.service.RolesService;
 import com.schoolofnet.helpdesk.service.TicketService;
 import com.schoolofnet.helpdesk.service.UserService;
@@ -26,13 +36,67 @@ public class TicketController {
 	private RolesService roleService;
 	
 	@GetMapping
+	public String index(Model model) {
+		model.addAttribute("ticketList", this.ticketService.findAll());
+		return "tickets/index";
+	}
+	
+	@GetMapping("{id}")
+	public String show(@PathVariable("id") Long id, Model model) {
+		Ticket ticket = this.ticketService.show(id);
+		model.addAttribute("ticket", ticket);
+		return "tickets/show";
+	}
+	
+	@GetMapping("/new")
 	public String create(Model model) {
 		model.addAttribute("ticket", new Ticket());
+		this.findAllTechinicians(model);
+		return "tickets/create";
+	}
+	
+	@PostMapping
+	public String save(@Valid @ModelAttribute("ticket") Ticket ticket, BindingResult bindingResult, Model model) {
 		
+		if (bindingResult.hasErrors()) {
+			return "ticket/create";
+		}
+		
+		this.ticketService.create(ticket);
+		
+		return "redirect:/tickets";
+	}
+	
+	@GetMapping("/edit/{id}")
+	public String edit(@PathVariable("id") Long id, Model model) {
+		Ticket ticket = this.ticketService.show(id);
+		model.addAttribute("ticket", ticket);
+		this.findAllTechinicians(model);
+		return "tickets/show";
+	}
+	
+	@PutMapping("{id}")
+	public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("ticket") Ticket ticket, 
+			BindingResult bingdingResult, Model model) {
+		
+		if (bingdingResult.hasErrors()) {
+			return "tickets/edit";
+		}
+		
+		this.ticketService.update(id, ticket);
+		
+		return "";
+	}
+	
+	private Model findAllTechinicians(Model model) {
 		Role adminRole = this.roleService.findByName("ADMIN"); 
 		
-		model.addAttribute("techs", this.userService.findAllWhereRoleEquals(adminRole.getId()));
-		return "tickets/create";
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User userLogged = this.userService.getLoggedUser(auth.getName());
+		
+		model.addAttribute("techs", this.userService.findAllWhereRoleEquals(adminRole.getId(), userLogged.getId()));
+		
+		return model;
 	}
 	
 }
