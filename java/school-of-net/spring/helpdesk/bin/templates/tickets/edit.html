@@ -6,7 +6,7 @@
 	<th:block layout:fragment="content">
 		<div class="col-xs-12 col-md-12 text-center">
 			<h4>Edit a ticket</h4>
-			<form th:action="@{/tickets/{id} (id = ${ticket.id})" th:object="${ticket}" th:method="put">
+			<form th:action="@{/tickets/{id} (id = ${ticket.id})}" th:object="${ticket}" th:method="put">
 				<input type="hidden" th:field="*{id}" />
 				<div class="form-group">
 					<input type="text" th:field="*{name}" name="name" class="form-control" placeholder="Enter ticket name:"/>
@@ -22,7 +22,8 @@
 					<select th:field="*{technician}" class="custom-select">
 						<option th:each="tech : ${techs}"
 								th:value="${tech.id}"
-								th:text="${tech.name}"></option>
+								th:text="${tech.name}"
+								th:selected="${tech.id == ticket.technician.id}"></option>
 					</select>
 				</div>
 				

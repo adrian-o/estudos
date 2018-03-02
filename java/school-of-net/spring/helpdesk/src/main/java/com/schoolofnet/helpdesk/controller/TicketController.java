@@ -72,7 +72,7 @@ public class TicketController {
 		Ticket ticket = this.ticketService.show(id);
 		model.addAttribute("ticket", ticket);
 		this.findAllTechinicians(model);
-		return "tickets/show";
+		return "tickets/edit";
 	}
 	
 	@PutMapping("{id}")
@@ -85,7 +85,7 @@ public class TicketController {
 		
 		this.ticketService.update(id, ticket);
 		
-		return "";
+		return "redirect:/tickets";
 	}
 	
 	private Model findAllTechinicians(Model model) {
