@@ -37,8 +37,14 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public Boolean delete(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Ticket ticket = this.show(id);
+		  
+		if (ticket != null) {
+			this.repository.delete(ticket);
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override

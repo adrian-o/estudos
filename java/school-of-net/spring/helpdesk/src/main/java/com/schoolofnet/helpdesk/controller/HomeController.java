@@ -13,4 +13,9 @@ public class HomeController {
 	public String index(Model model) {
 		return "home/index";
 	}
+	
+	@GetMapping("/denied")
+	public String denied(Model model) {
+		return "home/403";
+	}
 }

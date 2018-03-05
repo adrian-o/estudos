@@ -3,11 +3,10 @@ package com.schoolofnet.helpdesk.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +37,7 @@ public class TicketController {
 	@GetMapping
 	public String index(Model model) {
 		model.addAttribute("ticketList", this.ticketService.findAll());
+		model.addAttribute("userLoggedIn", this.userService.findSecurityUser());
 		return "tickets/index";
 	}
 	
@@ -88,11 +88,16 @@ public class TicketController {
 		return "redirect:/tickets";
 	}
 	
+	@DeleteMapping("{id}")
+	public String delete(@PathVariable("id") Long id, Model model) {
+		this.ticketService.delete(id);
+		return "redirect:/tickets";
+	}
+	
 	private Model findAllTechinicians(Model model) {
 		Role adminRole = this.roleService.findByName("ADMIN"); 
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User userLogged = this.userService.getLoggedUser(auth.getName());
+		User userLogged = this.userService.findSecurityUser();
 		
 		model.addAttribute("techs", this.userService.findAllWhereRoleEquals(adminRole.getId(), userLogged.getId()));
 		
