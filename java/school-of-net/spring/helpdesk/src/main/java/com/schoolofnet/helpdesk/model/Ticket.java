@@ -1,7 +1,9 @@
 package com.schoolofnet.helpdesk.model;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -51,6 +54,9 @@ public class Ticket {
 	@JsonBackReference
 	private User technician;
 
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="ticket")
+	private Set<Interaction> interactions;
+	
 	public Ticket() {}
 
 	public Long getId() {
@@ -115,6 +121,14 @@ public class Ticket {
 
 	public void setTechnician(User technician) {
 		this.technician = technician;
+	}
+
+	public Set<Interaction> getInteractions() {
+		return interactions;
+	}
+
+	public void setInteractions(Set<Interaction> interactions) {
+		this.interactions = interactions;
 	}
 
 	@PrePersist
