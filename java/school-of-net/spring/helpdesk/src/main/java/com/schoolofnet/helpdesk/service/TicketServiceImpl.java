@@ -1,5 +1,6 @@
 package com.schoolofnet.helpdesk.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,37 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public Boolean delete(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Ticket ticket = this.show(id);
+		  
+		if (ticket != null) {
+			this.repository.delete(ticket);
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override
 	public Boolean update(Long id, Ticket ticket) {
-		return (this.repository.save(ticket)!=null);
+		Ticket ticketExists = this.show(id);
+		
+		if (ticketExists != null) {
+			ticketExists.setId(ticket.getId());
+			ticketExists.setName(ticket.getName());
+			ticketExists.setDescription(ticket.getDescription());
+			ticketExists.setFinished(ticket.getFinished());
+			ticketExists.setTechnician(ticket.getTechnician());
+			
+			if (ticket.getFinished()) {
+				ticketExists.setClosed(new Date());
+			}
+			
+			this.repository.save(ticketExists);
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override
