@@ -2,8 +2,6 @@ package com.schoolofnet.helpdesk.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.schoolofnet.helpdesk.model.Interaction;
@@ -25,18 +23,23 @@ public class InteractionServiceImpl implements InteractionsService {
 	
 	@Override
 	public Interaction create(Interaction interaction, Long ticketId) {
-		
 		Ticket ticket = this.ticketRepository.findOne(ticketId);
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		interaction.setTicket(ticket);
-		interaction.setUserInteraction(userService.getLoggedUser(auth.getName()));
+		interaction.setUserInteraction(userService.findSecurityUser());
 		
 		return this.interactionRepository.save(interaction);
 	}
 
 	@Override
-	public Boolean delete(Long id) {		
+	public Boolean delete(Long id) {	
+		Interaction interaction = this.interactionRepository.findOne(id);
+		
+		if (interaction != null) {
+			this.interactionRepository.delete(interaction);
+			return true;
+		}
+		
 		return false;
 	}
 	

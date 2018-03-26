@@ -36,7 +36,8 @@ public class InteractionController {
 
 	@DeleteMapping("{id}")
 	public String delete(@PathVariable("ticketId") Long ticketId, @PathVariable("id") Long id, Model model) {
-		return "";
+		this.interactionService.delete(id);
+		return "redirect:/tickets/" + ticketId;
 	}
 	
 }
