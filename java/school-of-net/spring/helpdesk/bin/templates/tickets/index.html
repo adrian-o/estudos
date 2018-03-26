@@ -24,8 +24,8 @@
 						<td th:text="${#dates.format(ticket.created, 'dd/MM/yyyy')}"></td>
 						<td>
 							<a th:href="@{/tickets/{id}(id = ${ticket.id})}" class="btn btn-secondary inline">See</a>
-							<a th:if="${userLoggedIn.id == ticket.userOpen.id}" th:href="@{/tickets/edit/{id}(id = ${ticket.id})}" class="btn btn-info inline">Edit</a>
-							<form th:if="${userLoggedIn.id == ticket.userOpen.id}" th:action="@{/tickets/{id}(id=${ticket.id})}" th:method="delete" class="inline">
+							<a th:if="${userLoggedIn.id == ticket.userOpen.id or userLoggedIn.roles[0].name == 'ADMIN'}" th:href="@{/tickets/edit/{id}(id = ${ticket.id})}" class="btn btn-info inline">Edit</a>
+							<form th:if="${userLoggedIn.id == ticket.userOpen.id or userLoggedIn.roles[0].name == 'ADMIN'}" th:action="@{/tickets/{id}(id=${ticket.id})}" th:method="delete" class="inline">
 								<button class="btn btn-danger">Delete</button>
 							</form>
 						</td>

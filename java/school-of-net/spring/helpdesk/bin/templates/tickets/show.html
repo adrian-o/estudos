@@ -68,7 +68,7 @@
 				<strong th:text="${interact.userInteraction.email} + ' comments:'"></strong>
 				<p th:text="${interact.text}"></p>
 			</div>
-			<div class="col-xs-2 col-md-2">
+			<div class="col-xs-2 col-md-2" th:if="${userLoggedIn.roles[0].name == 'ADMIN'}">
 				<form th:action="@{/tickets/{ticketId}/interactions/{id}(ticketId = ${ticket.id}, id = ${interact.id})}" th:method="delete">
 					<button type="submit" class="btn btn-danger">Delete</button>
 				</form>
