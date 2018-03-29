@@ -20,6 +20,12 @@
 			<li class="nav-item">
 				<a href="/tickets" class="nav-link">Tickets</a>
 			</li>
+			<li class="nav-item">
+				<a href="/reports/tickets" class="nav-link" sec:authorize="hasAuthority('ADMIN')">Report Tickets HTML</a>
+			</li>
+			<li class="nav-item">
+				<a href="/reports/tickets/pdfgen" class="nav-link" sec:authorize="hasAuthority('ADMIN')">Report Tickets PDF</a>
+			</li>
 		</ul>
 		
 		<ul class="navbar-nav ml-auto" sec:authorize="isAuthenticated()">

@@ -11,5 +11,5 @@ public interface TicketService {
 	public Boolean delete(Long id);
 	public Boolean update(Long id, Ticket ticket);
 	public Ticket show(Long id);
-	
+	public List<Ticket> ticketsByDays(Integer days);
 }

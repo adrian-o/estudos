@@ -32,6 +32,10 @@ dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('mysql:mysql-connector-java')
 	
+	// EXTERNALS
+	// https://mvnrepository.com/artifact/com.lowagie/itext
+	compile('com.lowagie:itext:4.2.2')
+	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
 }
