@@ -42,13 +42,13 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função para adicionar as colunas(features) de uma lista em outra lista, na mesma ordem
 
 """
-Função que retorna uma lista de valores específicos de uma única coluna
-da origem de dados a partir de um índice específico.
-Argumentos:
-    param1: Lista de dados originais.
-    param2: Índice da coluna dentro da lista.
-Retorna:
-    Uma lista com todos os valores da coluna indicada no param2.
+    Função que retorna uma lista de valores específicos de uma única coluna
+    da origem de dados a partir de um índice específico.
+    Argumentos:
+        param1: Lista de dados originais.
+        param2: Índice da coluna dentro da lista.
+    Retorna:
+        Uma lista com todos os valores da coluna indicada no param2.
 """
 def column_to_list(data, index):
     column_list = []
@@ -110,12 +110,12 @@ input("Aperte Enter para continuar...")
 # Isso deveria retornar uma lista com [count_male, count_female] (exemplo: [10, 15] significa 10 Masculinos, 15 Femininos)
 
 """
-Função que conta os gêneros da lista da origem de dados.
-Argumentos:
-    param1: Lista de dados originais.
-Retorna:
-    Uma lista com os valores totais de itens com gênero masculino e femininos no formato
-    [8888,9999].
+    Função que conta os gêneros da lista da origem de dados.
+    Argumentos:
+        param1: Lista de dados originais.
+    Retorna:
+        Uma lista com os valores totais de itens com gênero masculino e femininos no formato
+        [8888,9999].
 """
 def count_gender(data_list):
     male = 0
@@ -148,13 +148,13 @@ input("Aperte Enter para continuar...")
 # Esperamos ver "Masculino", "Feminino", ou "Igual" como resposta.
 
 """
-Função que avalia os gêneros da origem de dados e retorna qual dos gêneros
-está mais presente, ou seja, que mais usa as bikes.
-Argumentos:
-    param1: Lista de dados originais.
-Retorna:
-    Uma String nos valores 'Masculino', 'Feminino' ou 'Igual' dependendo da comparação
-    da ocorrência dos gêneros.
+    Função que avalia os gêneros da origem de dados e retorna qual dos gêneros
+    está mais presente, ou seja, que mais usa as bikes.
+    Argumentos:
+        param1: Lista de dados originais.
+    Retorna:
+        Uma String nos valores 'Masculino', 'Feminino' ou 'Igual' dependendo da comparação
+        da ocorrência dos gêneros.
 """
 def most_popular_gender(data_list):
     answer = ""
@@ -196,13 +196,13 @@ input("Aperte Enter para continuar...")
 print("\nTAREFA 7: Verifique o gráfico!")
 
 """
-Função que conta o número de ocorrências de todos os valores de uma determinada coluna
-da origem de dados.
-Argumentos:
-    param1: Lista de dados com os valores de uma determinada coluna.
-    param2: Lista com os valores distintos presentes nos dados da coluna.
-Retorna:
-    Uma lista com os valores totais de cada valor que ocorreu em uma determinada coluna.
+    Função que conta o número de ocorrências de todos os valores de uma determinada coluna
+    da origem de dados.
+    Argumentos:
+        param1: Lista de dados com os valores de uma determinada coluna.
+        param2: Lista com os valores distintos presentes nos dados da coluna.
+    Retorna:
+        Uma lista com os valores totais de cada valor que ocorreu em uma determinada coluna.
 """
 def columns_values(data, types):
     column_list = []
