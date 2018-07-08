@@ -7,8 +7,10 @@ import matplotlib.pyplot as plt
 # Vamos ler os dados como uma lista
 print("Lendo o documento...")
 with open('chicago.csv', 'r') as file_read:
-    data_list = [{k: v for k, v in row.items()}
-        for row in csv.DictReader(file_read, skipinitialspace=True)]
+    reader = csv.DictReader(file_read)
+    data_list = list(reader)
+
+
 print("Ok!")
 
 input("Aperte Enter para continuar...")
@@ -31,8 +33,8 @@ input("Aperte Enter para continuar...")
 
 print("\nTAREFA 2: Imprimindo o gênero das primeiras 20 amostras")
 
-for index in range(20):
-    print(data_list[index]['Gender'])
+for i, line in enumerate(data_list[:20],start=1):
+    print("Line : {}\tGender: {}".format(i,line['Gender']))
 
 # Ótimo! Nós podemos pegar as linhas(samples) iterando com um for, e as colunas(features) por índices.
 # Mas ainda é difícil pegar uma coluna em uma lista. Exemplo: Lista com todos os gêneros
@@ -41,7 +43,8 @@ input("Aperte Enter para continuar...")
 # TAREFA 3
 # TODO: Crie uma função para adicionar as colunas(features) de uma lista em outra lista, na mesma ordem
 
-"""
+def column_to_list(data, index):
+    """
     Função que retorna uma lista de valores específicos de uma única coluna
     da origem de dados a partir de um índice específico.
     Argumentos:
@@ -49,8 +52,7 @@ input("Aperte Enter para continuar...")
         param2: Índice da coluna dentro da lista.
     Retorna:
         Uma lista com todos os valores da coluna indicada no param2.
-"""
-def column_to_list(data, index):
+    """
     column_list = []
     my_dict_keys = list(data[0].keys())
     my_dict = {}
@@ -109,15 +111,15 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função para contar os gêneros. Retorne uma lista.
 # Isso deveria retornar uma lista com [count_male, count_female] (exemplo: [10, 15] significa 10 Masculinos, 15 Femininos)
 
-"""
+def count_gender(data_list):
+    """
     Função que conta os gêneros da lista da origem de dados.
     Argumentos:
         param1: Lista de dados originais.
     Retorna:
         Uma lista com os valores totais de itens com gênero masculino e femininos no formato
         [8888,9999].
-"""
-def count_gender(data_list):
+    """
     male = 0
     female = 0
 
@@ -147,7 +149,8 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função que pegue o gênero mais popular, e retorne este gênero como uma string.
 # Esperamos ver "Masculino", "Feminino", ou "Igual" como resposta.
 
-"""
+def most_popular_gender(data_list):
+    """
     Função que avalia os gêneros da origem de dados e retorna qual dos gêneros
     está mais presente, ou seja, que mais usa as bikes.
     Argumentos:
@@ -155,14 +158,13 @@ input("Aperte Enter para continuar...")
     Retorna:
         Uma String nos valores 'Masculino', 'Feminino' ou 'Igual' dependendo da comparação
         da ocorrência dos gêneros.
-"""
-def most_popular_gender(data_list):
+    """
     answer = ""
-    list_count_gender = count_gender(data_list)
+    male,female = count_gender(data_list)
 
-    if list_count_gender[0] > list_count_gender[1]:
+    if male > female:
         answer = 'Masculino'
-    elif list_count_gender[0] < list_count_gender[1]:
+    elif male < female:
         answer = 'Feminino'
     else:
         answer = 'Igual'
@@ -195,7 +197,8 @@ input("Aperte Enter para continuar...")
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
 print("\nTAREFA 7: Verifique o gráfico!")
 
-"""
+def columns_values(data, types):
+    """
     Função que conta o número de ocorrências de todos os valores de uma determinada coluna
     da origem de dados.
     Argumentos:
@@ -203,8 +206,7 @@ print("\nTAREFA 7: Verifique o gráfico!")
         param2: Lista com os valores distintos presentes nos dados da coluna.
     Retorna:
         Uma lista com os valores totais de cada valor que ocorreu em uma determinada coluna.
-"""
-def columns_values(data, types):
+    """
     column_list = []
     my_dict = {}
 
@@ -325,15 +327,15 @@ input("Aperte Enter para continuar...")
 print("Você vai encarar o desafio? (yes ou no)")
 answer = "yes"
 
-"""
+def count_items(column_list):
+    """
     Função que conta os tipos de uma coluna passada como uma lista.
     Argumentos:
         param1: Lista com os valores de uma determinada coluna.
     Retorna:
         Uma lista de valores distindos da coluna; Uma lista de totais 
         que esses items se repetem na coluna.
-"""
-def count_items(column_list):
+    """
     item_types = list(set(column_list))
     count_items = []
     my_dict = {}
