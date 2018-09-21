@@ -27,6 +27,9 @@ def list_all_logs(path_dir):
 
 
 
+def rename_log_file():
+     
+
 def main():
     if not os.path.exists(main_dir):
         print('Erro do caraleo...')
