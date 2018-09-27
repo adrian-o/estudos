@@ -27,6 +27,7 @@ Homestead.json
 java/school-of-net/spring/Servers/
 *.class
 */bin/*
+*.jar
 
 .gradle
 /build/

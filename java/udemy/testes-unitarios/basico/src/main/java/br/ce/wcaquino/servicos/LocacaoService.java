@@ -1,0 +1,64 @@
+package br.ce.wcaquino.servicos;
+
+import static br.ce.wcaquino.utils.DataUtils.adicionarDias;
+
+import java.util.Date;
+
+import br.ce.wcaquino.entidades.Filme;
+import br.ce.wcaquino.entidades.Locacao;
+import br.ce.wcaquino.entidades.Usuario;
+
+public class LocacaoService {
+	
+	public Locacao alugarFilme(Usuario usuario, Filme filme) {
+		Locacao locacao = new Locacao();
+		locacao.setFilme(filme);
+		locacao.setUsuario(usuario);
+		locacao.setDataLocacao(new Date());
+		locacao.setValor(filme.getPrecoLocacao());
+
+		//Entrega no dia seguinte
+		Date dataEntrega = new Date();
+		dataEntrega = adicionarDias(dataEntrega, 1);
+		locacao.setDataRetorno(dataEntrega);
+		
+		//Salvando a locacao...	
+		//TODO adicionar mÃ©todo para salvar
+		
+		return locacao;
+	}
+
+	/* Aula 3
+	public static void main(String[] args) {
+		// Cenário
+		LocacaoService service = new LocacaoService();
+		Usuario usuario = new Usuario("Adriano");
+		Filme filme = new Filme("Dança do amanhã", 10, 4.5);
+		
+		// Ação
+		Locacao locacao = service.alugarFilme(usuario, filme);
+		
+		// Verificação
+		System.out.println(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
+		System.out.println(locacao.getDataRetorno().after(new Date()));
+		System.out.println(locacao.getValor() == filme.getPrecoLocacao());
+	} */
+	
+	// Aula 4
+//	@Test
+//	public void testeLocacao() {
+//		// Cenário
+//		LocacaoService service = new LocacaoService();
+//		Usuario usuario = new Usuario("Adriano");
+//		Filme filme = new Filme("Dança do amanhã", 10, 4.5);
+//		
+//		// Ação
+//		Locacao locacao = service.alugarFilme(usuario, filme);
+//		
+//		// Verificação
+//		Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
+//		Assert.assertTrue(locacao.getDataRetorno().after(new Date()));
+//		Assert.assertTrue(locacao.getValor() == filme.getPrecoLocacao()*2);
+//	}
+
+}
