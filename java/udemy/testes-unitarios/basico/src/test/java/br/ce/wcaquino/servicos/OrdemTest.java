@@ -1,4 +1,4 @@
-package br.cd.wcaquino.servicos;
+package br.ce.wcaquino.servicos;
 
 import org.junit.Test;
 import org.junit.runners.MethodSorters;

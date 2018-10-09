@@ -1,4 +1,4 @@
-package br.cd.wcaquino.servicos;
+package br.ce.wcaquino.servicos;
 
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -34,22 +34,22 @@ public class LocacaoServiceSimplesTest {
 		Filme filme = new Filme("Dança do amanhã", 10, 4.6);
 		
 		// Ação
-		Locacao locacao = service.alugarFilme(usuario, filme);
-		
-		// Verificação
-		assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
-		assertTrue(locacao.getDataRetorno().after(new Date()));
-		assertEquals(4.5, locacao.getValor(), 0.1);
-		
-		// Aula 7
-		assertThat(locacao.getValor(), is(4.6));
-		assertThat(locacao.getValor(), is(equalTo(4.6)));
-		assertThat(locacao.getValor(), is(not(7.6)));
-		
-		// Aula 8 
-		error.checkThat(locacao.getValor(), is(5.0));
-		error.checkThat(locacao.getValor(), is(equalTo(4.6)));
-		error.checkThat(locacao.getValor(), is(not(4.6)));
+//		Locacao locacao = service.alugarFilme(usuario, filme);
+//		
+//		// Verificação
+//		assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
+//		assertTrue(locacao.getDataRetorno().after(new Date()));
+//		assertEquals(4.5, locacao.getValor(), 0.1);
+//		
+//		// Aula 7
+//		assertThat(locacao.getValor(), is(4.6));
+//		assertThat(locacao.getValor(), is(equalTo(4.6)));
+//		assertThat(locacao.getValor(), is(not(7.6)));
+//		
+//		// Aula 8 
+//		error.checkThat(locacao.getValor(), is(5.0));
+//		error.checkThat(locacao.getValor(), is(equalTo(4.6)));
+//		error.checkThat(locacao.getValor(), is(not(4.6)));
 	}
 
 }

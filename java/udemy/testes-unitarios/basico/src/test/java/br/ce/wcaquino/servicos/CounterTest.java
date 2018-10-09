@@ -1,4 +1,4 @@
-package br.cd.wcaquino.servicos;
+package br.ce.wcaquino.servicos;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
