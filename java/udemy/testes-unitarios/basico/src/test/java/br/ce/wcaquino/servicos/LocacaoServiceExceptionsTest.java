@@ -1,13 +1,17 @@
 package br.ce.wcaquino.servicos;
 
+import static br.ce.wcaquino.builders.FilmeBuilder.umFilme;
 import static junit.framework.Assert.fail;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+
+import java.util.Arrays;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import br.ce.wcaquino.builders.UsuarioBuilder;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Usuario;
 import br.ce.wcaquino.exceptions.FilmeSemEstoqueException;
@@ -25,8 +29,8 @@ public class LocacaoServiceExceptionsTest {
 	public void testeLocacaoSemEstoqueErro() throws Exception {
 		// Cenário
 		LocacaoService service = new LocacaoService();
-		Usuario usuario = new Usuario("Adriano");
-		Filme filme = new Filme("Dança do amanhã", 1, 4.6);
+		Usuario usuario = UsuarioBuilder.umUsuario().agora();
+		Filme filme = umFilme().agora();
 		
 		// Ação
 		//service.alugarFilme(usuario, filme);
@@ -36,19 +40,19 @@ public class LocacaoServiceExceptionsTest {
 	public void testeLocacaoSemEstoqueElegante() throws Exception {
 		// Cenário
 		LocacaoService service = new LocacaoService();
-		Usuario usuario = new Usuario("Adriano");
-		Filme filme = new Filme("Dança do amanhã", 0, 4.6);
+		Usuario usuario = UsuarioBuilder.umUsuario().agora();
+		Filme filme = umFilme().semEstoque().agora();
 		
 		// Ação
-		//service.alugarFilme(usuario, filme);
+		service.alugarFilme(usuario, Arrays.asList(filme));
 	}
 	
 	@Test
 	public void testeLocacaoSemEstoqueRobusta() throws FilmeSemEstoqueException {
 		// Cenário
 		LocacaoService service = new LocacaoService();
-		//Usuario usuario = new Usuario("Adriano");
-		Filme filme = new Filme("Dança do amanhã", 1, 4.6);
+		//Usuario usuario = UsuarioBuilder.umUsuario().agora();
+		Filme filme = umFilme().agora();
 		
 		// Ação
 //		try {
@@ -65,7 +69,7 @@ public class LocacaoServiceExceptionsTest {
 	public void testeLocacaoFilmeVazio() throws LocadoraException, FilmeSemEstoqueException {
 		// Cenário
 		LocacaoService service = new LocacaoService();
-		Usuario usuario = new Usuario("Adriano");
+		Usuario usuario = UsuarioBuilder.umUsuario().agora();
 		//Filme filme = new Filme("Dança do amanhã", 0, 4.6);
 		
 		expected.expect(LocadoraException.class);

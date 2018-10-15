@@ -1,6 +1,7 @@
 package br.ce.wcaquino.servicos;
 
 
+import static br.ce.wcaquino.builders.FilmeBuilder.umFilme;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -14,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
+import br.ce.wcaquino.builders.UsuarioBuilder;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
@@ -30,8 +32,8 @@ public class LocacaoServiceSimplesTest {
 	public void testeLocacao() throws Exception {
 		// Cenário
 		LocacaoService service = new LocacaoService();
-		Usuario usuario = new Usuario("Adriano");
-		Filme filme = new Filme("Dança do amanhã", 10, 4.6);
+		Usuario usuario = UsuarioBuilder.umUsuario().agora();
+		Filme filme = umFilme().agora();
 		
 		// Ação
 //		Locacao locacao = service.alugarFilme(usuario, filme);

@@ -3,6 +3,7 @@ package br.ce.wcaquino.servicos;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.ce.wcaquino.builders.UsuarioBuilder;
 import br.ce.wcaquino.entidades.Usuario;
 
 public class AssertTest {
@@ -12,7 +13,7 @@ public class AssertTest {
 		Assert.assertTrue(true);
 		Assert.assertFalse(false);
 		
-		Assert.assertEquals("Erro ao comparar inteiros...", 1, 2);
+		Assert.assertEquals("Erro ao comparar inteiros...", 1, 1);
 		
 		Assert.assertEquals(0.114, 0.114434, 0.001);
 		Assert.assertEquals(Math.PI, 3.14, 0.01);
@@ -29,8 +30,8 @@ public class AssertTest {
 		Assert.assertTrue("bola".equalsIgnoreCase("Bola"));
 		Assert.assertTrue("bola".startsWith("bo"));
 	
-		Usuario u1 = new Usuario("User1");
-		Usuario u2 = new Usuario("User1");
+		Usuario u1 = UsuarioBuilder.umUsuario().agora();
+		Usuario u2 = UsuarioBuilder.umUsuario().agora();
 		
 		// Falha se o objeto não tiver o equals() implementado
 		Assert.assertEquals(u1, u2);
