@@ -34,6 +34,7 @@ def rename_log_file(log_file):
      
 
 def execute():
+    #list_file_logs = [] # Aqui Funciona o código mas não faz nada
     if not os.path.exists(main_dir):
         print('file path does\'nt exists...')
     else:
@@ -44,4 +45,4 @@ def execute():
             print('renaming...')
             rename_log_file(log_file)
         
-        list_file_logs = []
+        #list_file_logs = [] # Aqui estoura o UnboundLocalError: local variable 'list_file_logs' referenced before assignment
