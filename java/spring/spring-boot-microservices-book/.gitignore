@@ -1,0 +1,6 @@
+/.metadata/
+*.class
+*/bin/*
+*.jar
+.DS_Store
+/target/*
