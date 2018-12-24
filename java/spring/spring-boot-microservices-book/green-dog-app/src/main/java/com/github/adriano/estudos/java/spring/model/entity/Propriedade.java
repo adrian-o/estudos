@@ -1,11 +1,15 @@
 package com.github.adriano.estudos.java.spring.model.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Propriedade {
+public class Propriedade implements Serializable {
 
+	private static final long serialVersionUID = -2584219238514837904L;
+	
 	@Id
 	private String nome;
 	private String valor;
