@@ -1,6 +1,4 @@
-package com.github.adriano.estudos.java.spring.model.entity;
-
-import java.io.Serializable;
+package com.github.adriano.estudos.java.spring.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,26 +10,23 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-public class Item implements Serializable {
-
-	private static final long serialVersionUID = 1637946811824774327L;
+public class Item  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotNull 
-	@Length(min = 2, max = 30, message = "O	tamanho	do nome deve ser entre {min} e {max} caracteres")
+
+    @NotNull
+    @Length(min=2, max=30,message="O tamanho do nome deve ser entre {min} e {max} caracteres")
 	private String nome;
-	
-	@NotNull
-	@Min(value = 20, message = "O valor	mínimo deve	ser	{value}	reais")
+
+    @NotNull
+    @Min(value=20,message="O valor mínimo deve ser {value} reais")
 	private Double preco;
+	
+	public Item() {}
 
-	public Item() {
-	}
-
-	public Item(Long id, String nome, Double preco) {
+	public Item(Long id,String nome,Double preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -66,8 +61,7 @@ public class Item implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ( (id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -85,12 +79,12 @@ public class Item implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
 		return true;
 	}
-		
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", nome=" + nome + ", preco=" + preco + "]";
+	}
+
 }

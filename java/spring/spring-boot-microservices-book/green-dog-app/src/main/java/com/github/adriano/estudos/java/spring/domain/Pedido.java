@@ -1,6 +1,5 @@
-package com.github.adriano.estudos.java.spring.model.entity;
+package com.github.adriano.estudos.java.spring.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -17,35 +16,33 @@ import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Pedido implements Serializable	{
-	
-	private static final long serialVersionUID = 8713962907842940400L;
+public class Pedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private	Long id;
-	
-	@ManyToOne(optional	= true)
-	private	Cliente	cliente;
-	
+	private Long id;
+
+	@ManyToOne(optional = true)
+	private Cliente cliente;
+
 	@ManyToMany
 	@Cascade(CascadeType.MERGE)
-	private	List<Item> itens;
-	
-	@DateTimeFormat(pattern	= "dd-MM-yyyy")
-	private	Date data;
-	
+	private List<Item> itens;
+
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private Date data;
+
 	@Min(1)
-	private	Double valorTotal;
+	private Double valorTotal;
 
-	public Pedido() {
-	}
+	public Pedido() {}
 
-	public Pedido(Long id, Cliente cliente, List<Item> itens, Double valorTotal) {
+	public Pedido(Long id,Cliente cliente,List<Item> itens,Double valorTotal) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
 		this.itens = itens;
+		this.data = new Date();
 		this.valorTotal = valorTotal;
 	}
 
@@ -93,7 +90,7 @@ public class Pedido implements Serializable	{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ( (id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -113,4 +110,10 @@ public class Pedido implements Serializable	{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Pedido [id=" + id + ", cliente=" + cliente + ", itens=" + itens + ", data=" + data + ", valorTotal=" + valorTotal + "]";
+	}
+
 }
