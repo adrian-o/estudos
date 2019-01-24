@@ -6,14 +6,14 @@ import com.github.adriano.estudos.java.spring.domain.Pedido;
 import com.github.adriano.estudos.java.spring.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class RepositoryTest 
-//implements ApplicationRunner 
+public class RepositoryTest implements ApplicationRunner 
 {
 
 	private static final long ID_CLIENTE_FERNANDO = 11l;
