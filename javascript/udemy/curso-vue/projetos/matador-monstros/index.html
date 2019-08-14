@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600&display=swap">
+    <script src="https://unpkg.com/vue"></script>
+    <title>Monsters Killer</title>
+</head>
+<body>
+    <div id="app">
+        <div class="panel scores">
+            <div class="score">
+                <h1>Player</h1>
+                <div class="life-bar">
+                    <div class="life" :class="{danger: playerLife < 20}"
+                        :style="{width: playerLife + '%'}"></div>
+                </div>
+                <div>{{ playerLife }}%</div>
+            </div>
+            <div class="score">
+                <h1>Monster</h1>
+                <div class="life-bar">
+                    <div class="life" :class="{danger: monsterLife < 20}"
+                        :style="{width: monsterLife + '%'}"></div>
+                </div>
+                <div>{{ monsterLife }}%</div>
+            </div>
+        </div>
+        <div v-if="hasResult" class="panel result">
+            <div v-if="monsterLife == 0" class="win">You win ;-)</div>
+            <div v-else class="lose">You lose :-(</div>
+        </div>
+        <div class="panel buttons">
+            <template v-if="running">
+                <button @click="attack(false)" class="btn attack">Attack</button>
+                <button @click="attack(true)" class="btn special-attack">Special attack</button>
+                <button @click="healAndHurt()" class="btn heal">Heal</button>
+                <button @click="running = false" class="btn quit">Quit</button>
+            </template>
+            <button v-else @click="startGame"
+                    class="btn new-game">New game</button>
+        </div>
+        <div v-if="logs.length" class="panel logs">
+            <ul>
+                <li v-for="log in logs"
+                    :class="log.cls"
+                    class="log">
+                    {{ log.text }}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

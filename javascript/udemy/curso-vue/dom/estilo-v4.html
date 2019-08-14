@@ -1,0 +1,49 @@
+<script src="https://unpkg.com/vue"></script>
+
+<style>
+    .caixas {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .demo {
+        width: 100px;
+        height: 100px;
+        background-color: white;
+    }
+</style>
+
+<div id="app">
+    <div class="caixas">
+        <div class="demo" :style="estiloDefault"></div>
+    </div>
+    <hr>
+    <input type="text" v-model="cor" style="display: inline">
+    <input type="text" v-model="largura" style="display: inline">
+    <input type="text" v-model="altura" style="display: inline">
+    <br><br><br><br><br>
+    <div class="caixas">
+        <div class="demo" :style="{backgroundColor: cor}"></div>
+        <div class="demo" :style="{'background-color': cor}"></div>
+        <div class="demo" :style="[{'background-color': cor}, estiloDefault]"></div>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            cor: 'red', largura: 100, altura: 100
+        },
+        computed: {
+            estiloDefault() {
+                return {
+                    backgroundColor: this.cor,
+                    width: this.largura + 'px',
+                    height: this.altura + 'px'
+                }
+            }
+        },
+        watch: {}
+    })
+</script>
