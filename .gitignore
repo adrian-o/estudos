@@ -29,6 +29,7 @@ java/school-of-net/spring/Servers/
 */bin/*
 *.jar
 .DS_Store
+java/java8/target
 
 .gradle
 /build/
