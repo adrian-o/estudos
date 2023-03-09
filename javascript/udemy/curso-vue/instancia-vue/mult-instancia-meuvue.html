@@ -1,0 +1,42 @@
+<meta charset="UTF-8">
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app">
+    {{ titulo }} {{nome}} {{sobrenome}} {{3+3}} {{3*3}} {{3-3}} {{3/3}}
+</div>
+
+<script>
+    function MeuVue(params) {
+        this.$el = document.querySelector(params.el);
+        this.$data = params.data;
+
+        for (let atr in this.$data) {
+            Object.defineProperty(this, atr, {
+                get: () => {
+                    return this.$data[atr];
+                },
+                set: value => {
+                    this.$data[atr] = value;
+                }
+            })
+        }
+
+        // interpolar
+        const regex = /\{\{([\s\w+*-/]*)\}\}/g
+        this.$el.innerHTML = this.$el.innerHTML.replace(regex, (match, $1) => {
+            const value = this[$1.trim()]
+            return value ? value : eval($1)
+        })
+    }
+
+    const vm = new MeuVue({
+        el: '#app',
+        data: {
+            nome: 'Maria',
+            sobrenome: 'Silva',
+            titulo: 'Teste do MeuVue'
+        }
+    });
+
+    console.log(vm.nome)
+</script>

@@ -1,0 +1,59 @@
+use('times-br');
+/*
+// Insere os times na base de dados
+db.times.insertMany([
+  { '_id': 1, 'name': 'Atlético-MG', 'nacionais': 4, 'fundacao': new Date('1908-03-25T00:00:000Z') },
+  { '_id': 2, 'name': 'Botafogo', 'nacionais': 2, 'fundacao': new Date('1904-08-12T00:00:000Z') },
+  { '_id': 3, 'name': 'Corinthians', 'nacionais': 10, 'fundacao': new Date('1910-09-01T00:00:00Z') },
+  { '_id': 4, 'name': 'Flamengo', 'nacionais': 11, 'fundacao': new Date('1895-11-17T00:00:00.000Z') },
+  { '_id': 5, 'name': 'Fluminense', 'nacionais': 5, 'fundacao': new Date('1902-07-21T00:00:000Z') },
+  { '_id': 6, 'name': 'Grêmio', 'nacionais': 7, 'fundacao': new Date('1903-09-15T00:00:000Z') },
+  { '_id': 7, 'name': 'Palmeiras', 'nacionais': 15, 'fundacao': new Date('1914-08-26T00:00:000Z') },
+  { '_id': 8, 'name': 'São Paulo', 'nacionais': 6, 'fundacao': new Date('1935-01-25T00:00:000Z') },
+  { '_id': 9, 'name': 'Vasco da Gama', 'nacionais': 5, 'fundacao': new Date('1898-08-26T21:00:00.000Z') },
+]);
+*/
+
+// Maior igual e menor igual
+//db.times.find({ fundacao: { $gte: new Date('1908-07-31'), $lt: new Date('1930-04-05') } });
+
+
+// Maior igual
+//db.times.find({ date: { $gte: new Date('1907-04-04')} });
+
+/*
+// Insere uma coluna que foi esquecida de usar durante a criação inicial dos dados
+db.times.updateOne({_id:1}, {$set:{state:'SP'}})
+db.times.updateOne({_id:2}, {$set:{state:'SP'}})
+db.times.updateOne({_id:3}, {$set:{state:'SP'}})
+db.times.updateOne({_id:4}, {$set:{state:'RJ'}})
+db.times.updateOne({_id:5}, {$set:{state:'RJ'}})
+db.times.updateOne({_id:6}, {$set:{state:'RJ'}})
+db.times.updateOne({_id:7}, {$set:{state:'RS'}})
+db.times.updateOne({_id:8}, {$set:{state:'RJ'}})
+*/
+
+// Agregação por estado de títulos nacionais de times com mais de 1 título e menos que 10
+const aggregation = [
+  {$match: {nacionais: {$gte:2,$lt:11}}}, 
+  {$group: {_id:'$state', totalNacionais:{$sum:'$nacionais'}}}
+]; 
+
+// Agregação por estado de títulos nacionais
+const aggregation = [
+  {$group: {_id:'$state', totalNacionais:{$sum:'$nacionais'}}}
+];
+
+db.times.aggregate(aggregation);
+
+// Procura todos os times onde os títulos nacionais são 
+// menores que 5 OU maiores que 10 
+db.times.find({
+    $or:[
+        {nacionais:{$lt:5}}, 
+        {nacionais:{$gt:10}}
+    ]
+});*/
+
+// Limpa a base de dados
+//db.times.drop()
