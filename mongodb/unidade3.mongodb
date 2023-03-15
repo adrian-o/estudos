@@ -1,0 +1,70 @@
+//use('stock-items');
+
+// Crie uma Capped Collection que possa conter até 10 documentos.
+//db.createCollection("inventory", {capped:true, size: 8192, max: 10})
+
+// Inclua 11 documentos na coleção criada.
+/*db.inventory.insertMany([
+  { _id: 1,  item: 'Monitor' },
+  { _id: 2,  item: 'Cadeira' },
+  { _id: 3,  item: 'Mesa' },
+  { _id: 4,  item: 'Mouse' },
+  { _id: 5,  item: 'Led' },
+  { _id: 6,  item: 'Câmera' },
+  { _id: 7,  item: 'Teclado' },
+  { _id: 8,  item: 'Placa mãe' },
+  { _id: 9,  item: 'Cabo de força' },
+  { _id: 10, item: 'HD' },
+  { _id: 11, item: 'Memória RAM' }
+]);*/
+
+// Liste todos os documentos da coleção.
+//db.inventory.find()
+
+// Explique o que aconteceu com o primeiro documento que foi inserido.
+// Como se trata de uma Capped collection limitada a 10 elementos, o primeiro elemento inserido
+// na coleção foi automaticamente removido quando o elemento 11 foi inserido. Uma Capped funcina 
+// como uma estrutura FIFO de fila.
+
+
+
+use('stock-items-2');
+// Insira o documento abaixo e liste seu conteúdo
+db.inventory.insert({
+  item: "ABC1",
+  details: {model: "14Q3", manufacturer: "XYZ Company"},
+  stock: [ { size: "S", qty: 25 }, { size: "M", qty: 50 } ],
+  category: "clothing"
+ }
+)
+
+// Insira o documento acima e liste seu conteúdo.
+db.inventory.find({item:"ABC1"})
+
+// Elimine do documento o size “M”.
+db.inventory.update({item: "ABC1"},{$pull: {stock: {size: "M"}}})
+
+// Adicione o size “G” com qty 12.
+db.inventory.update({item: "ABC1"}, {$push: {stock: {size: "G", qty: 12}}})
+
+// Adicione o size “PP” com qty 13.
+db.inventory.update({item: "ABC1"}, {$push: {stock: {size: "PP", qty: 13}}})
+
+//Inclua um novo documento
+db.inventory.insertOne({item: "Biscoito", stock: [ { type: "Doce", qty: 14 }, { type: "salgado", qty: 15 } ]})
+
+// Liste a data de hoje.
+var today = new Date()
+today
+
+// Mostre a quantidade de dias entre hoje e a data do seu aniversário.
+var birthDay = new Date('1983-03-16')
+var diff = today - birthDay
+diff = diff/(24*3600*1000)
+diff
+
+// Mostre a quantidade de meses entre hoje e a data do seu aniversário. Considere que cada mês tem 30 dias.
+diff/30
+
+// Mostre a quantidade de anos entre hoje e a data do seu aniversário. Considere que cada ano tem 365 dias.
+diff/365
