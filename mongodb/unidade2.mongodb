@@ -1,0 +1,66 @@
+use('escola');
+
+/** Collection grade */
+db.grade.insert({Nome:"SQL e PL/SQL", Autor: "Henrique Poyatos", Novo: false, ISBN: 12345678, Valor: 170.13});
+
+db.grade.insert({Nome:"Arquitetura de Computadores", Professor: "Nelson Massaia", Novo: false, Cod: "AC", Mês: 1});
+
+db.grade.insert({Nome:"Lógica de Programação", Autor: "Jorge Surian", Novo: false, ISBN: 45678901, Valor: 121.99});
+
+db.grade.insert({Nome:"Comunicação e Expressão", Professor: "Maria Rosa", Cod: "CE", Mês: 1});
+
+db.grade.insert({Nome:"Banco de Dados", Autor: "Edson França", Novo: true, ISBN: 23456789, Valor: 160.16});
+
+db.grade.insert({Nome:"Inglês Instrumental", Professor: "Simone Afini", Cod: "II", Mês: 1});
+
+db.grade.insert({Nome:"Algoritmos", Autor: "Sandra Puga", Novo: true, ISBN: 34567890, Valor: 132.29});
+
+db.grade.insert({Nome:"Matemática", Autor: "Airton Borges", Professor: "Airton Borges", Novo: true, Cod: "MAT", Mês: 1, ISBN: 56789012, Valor: 155.55});
+
+// 1- Liste todos os documentos da grade que tenham código igual a “MAT” ou “GE”.
+db.grade.find({$or:[{Cod:"MAT"},{Cod:"GE"}]})
+
+// 2- Liste todos os documentos da grade que tenham código “IU” e sejam ministradas pelo professor “André Braga”.
+db.grade.find({Cod:"IU", Autor:"Andre Braga"})
+
+// 3- Liste todos os documentos da grade do mês 1.
+db.grade.find({Mês:1})
+
+// 4- Liste o primeiro documento da grade do mês 2.
+db.grade.findOne({Mês:2})
+
+// 5- Liste todos os documentos com valor superior a 150,00.
+db.grade.find({Valor:{$gt:150.00}})
+
+// 6- Liste todos os documentos com valor menor ou igual a 155,55.
+db.grade.find({Valor:{$lte:155.55}})
+
+// 7- Liste todos os documentos da grade que tenham ISBN.
+db.grade.find({ISBN:{$exists:true}})
+
+// 8- Liste todos os documentos da grade que tenham ISBN e valor superior a 155,55.
+db.grade.find({ISBN:{$exists:true},Valor:{$gt:155.55}})
+
+// 9- Liste todos os documentos da grade que tenham professor e ISBN. O valor deve ser inferior a 156,00.
+db.grade.find({ISBN:{$exists:true},Professor:{$exists:true}})
+
+// 10- Altere todos os documentos da grade que tenham código igual a “MAT” para “GE”.
+db.grade.updateMany({Cod:"MAT"}, {$set:{Cod:"GE"}})
+
+// 11- Altere todos os documentos da grade que tenham código “IU” para que sejam ministradas pelo professor “André Braga”.
+db.grade.updateMany({Cod:"IU"}, {$set:{Professor:"André Braga"}})
+
+// 12- Apague todos os documentos da grade do mês 1.
+db.grade.deleteMany({Mês:1})
+
+// 13- Altere todos os documentos da grade do mês 2 para mês 3.
+db.grade.updateMany({Mês:2}, {$set:{Mês:3}})
+
+// 14- Se o valor for superior a 150,00, altere o mês para 4.
+db.grade.updateMany({Valor:{$gt:150.00}}, {$set:{Mês:4}})
+
+// 15- Apague os documentos com valor menor ou igual a 155,55.
+db.grade.deleteMany({Valor:{$gte:155.55}})
+
+// 16- Apague todos os documentos da grade que tenham ISBN.
+db.grade.deleteMany({ISBN:{$exists:true}})
