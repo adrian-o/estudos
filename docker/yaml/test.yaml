@@ -1,0 +1,28 @@
+# Dados gerais
+nome: "Adriano"
+idade: 41
+
+# Início da criação de objetos
+objeto:
+  versao: 2
+  arquivo: "teste.txt"
+
+objeto2: {versao: 2, arquivo: teste.txt}
+
+teste_str: Esta informação é OK!!!!
+config: null
+config2: ~
+
+faz: true
+nao_faz: false
+
+ligado: on
+desligado: off
+
+lista_compras:
+  - Batata
+  - Feijão
+  - Arroz
+
+lista_compras2: [Batata, Feijão, Arroz]
+
