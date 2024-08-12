@@ -1,0 +1,8 @@
+GET https://randomuser.me/api
+
+###
+
+POST http://localhost:5000/inserthost HTTP/1.1
+content-type: application/json
+
+{}
