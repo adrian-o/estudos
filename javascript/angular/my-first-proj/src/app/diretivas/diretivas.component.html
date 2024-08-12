@@ -1,0 +1,47 @@
+<h2>- ngIf</h2>
+<p *ngIf="condition; else noCondition;">True</p>
+
+<ng-template #noCondition>
+  <p>False</p>
+</ng-template>
+
+<h2>- ngFor</h2>
+<p>Insira um filme na lista</p>
+<input [(ngModel)]="novoFilme">
+<button (click)="addFilme()">Adiciona Filme</button>
+<p>Lista de filmes assistidos</p>
+<ul>
+  <li *ngFor="let filme of filmes; let i = index" (click)="removeFilme(i)">
+    [{{i+1}}] - {{filme}}
+  </li>
+</ul>
+
+<h2>- ngSwitch</h2>
+<p>Valida o campo e avalia os cases</p>
+<input type="text" [(ngModel)]="nome">
+<div [ngSwitch]="nome">
+  <p *ngSwitchCase="'Adriano'">
+    É programador
+  </p>
+  <p *ngSwitchCase="'Márcia'">
+    É Técnica de Segurança do Trabalho
+  </p>
+  <p *ngSwitchDefault="">
+    Não é nada que me interessa...
+  </p>
+</div>
+
+<h2>- ngClass / Style</h2>
+<div [ngClass]="{'ng-class-enable':(nome == 'Adriano'), 'ng-class-disable': (nome == 'Márcia')}">Ng Class - Aplica uma classe CSS no elemento</div>
+<br><br>
+<div [ngStyle]="{'background':(nome == 'Adriano')?'blue':'pink', 'height':(nome == 'Adriano')?'30px':'20px'}">Ng Style - Altera atributos de estilos CSS</div>
+
+<h2>- ng-template</h2>
+<p>Não é criado no DOM até ter o seu critério de renderização avaliado</p>
+
+<h2>- ng-content</h2>
+<ng-content select="p"></ng-content>
+
+<h2>- Pipes</h2>
+<p>Uppercase pipe {{novoFilme | uppercase}}</p>
+<p>Data de hoje {{hoje | date:"dd/MM/yyyy"}}</p>

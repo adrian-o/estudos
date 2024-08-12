@@ -1,0 +1,17 @@
+<h2>-> Interpolation</h2>
+<p>Olá eu me chamo {{nome}} e tenho {{idade}} anos</p>
+
+<br>
+<h2>-> Property Bind</h2>
+<button [disabled]="isDisabled">Botão Desabilitado {{isDisabled}}</button>
+
+<br>
+<h2>-> Event Binding</h2>
+<div (mousemove)="mouseMoveEvent($event)" style="background: red; width: 200px; height: 200px;"></div>
+<h3>{{position.x}} - {{position.y}}</h3>
+
+<br>
+<h2>Two-way Bindings</h2>
+<p>Olá eu me chamo {{nome}}, você consegue adivinhar a minha idade?</p>
+<input [(ngModel)]="idadeComp">
+{{validaIdade()}}
