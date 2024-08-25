@@ -1,0 +1,56 @@
+# Criando cluster com o K3d
+k3d cluster create <name>
+
+
+# Criando clusters com Servers e Agents
+k3d cluster create <name> --servers <qtd> --agents <qtd>
+
+
+# Criando clusters e vinculando uma porta da máquina local com a porta do loadbalancer
+k3d cluster create <name> --servers <qtd> --agents <qtd> -p 30000:30000@loadbalancer
+
+
+# Validando cluster criado
+kubectl get nodes
+
+
+# Listando clusters criados
+k3d cluster list
+
+
+# Deletando node 
+k3d cluster delete <name>
+
+
+OBS:
+Servers - Control plane
+Agents - Worker nodes
+
+
+# Listando versões de API do Kubernetes
+kubectl api-resources -v=10 (caso queira ver algum erro)
+
+
+# Aplicando e validando Deployment ao cluster
+kubectl apply -f deployment.yaml
+kubectl get deplyment / deploy
+kubectl get replicaset
+kubectl get pod
+kubectl get all
+kubectl describe pod <pod-name>
+
+
+# Redirecionar porta local da máquina para uma porta do pod
+kubectl port-forward pod/<pod-name> 9090<local>:80<pod>
+
+
+# Deletando POD para testar a resiliência do server
+kubectl delete pod <pod-name>
+
+### Services
+LoadBalancer - deixar acessível externo criando um IP de acesso e cria um LoadBalancer na frente 
+
+NodePort     - deixar acessível externo e o endereço pra acessar o serviço é um dos IPs dos nodes do cluster 
+             - elege uma porta por padrão entre 30000 - 32767 para ser a porta de entrada 
+
+ClusterIP    - usado apenas dentro do k8s quando pretende-se liberar acesso apenas entre serviços internos
