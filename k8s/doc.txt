@@ -47,6 +47,15 @@ kubectl port-forward pod/<pod-name> 9090<local>:80<pod>
 # Deletando POD para testar a resiliência do server
 kubectl delete pod <pod-name>
 
+
+# Revisando versões de deploy
+kubectl rollout history deployment <deploy-name>
+
+
+# Voltando versão anterior de deployment
+kubectl rollout undo deployment <deploy-name>
+
+
 ### Services
 LoadBalancer - deixar acessível externo criando um IP de acesso e cria um LoadBalancer na frente 
 
